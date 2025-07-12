@@ -1,41 +1,37 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider, CssBaseline, createTheme } from '@mui/material';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { theme } from './theme';
 import Navbar from './components/layout/Navbar';
-import Landing from './components/pages/Landing';
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import Dashboard from './components/pages/Dashboard';
-import ItemDetail from './components/items/ItemDetail';
-import AddItem from './components/items/AddItem';
-import AdminPanel from './components/admin/AdminPanel';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#2E7D32', // Green for sustainability theme
-    },
-    secondary: {
-      main: '#1565C0', // Blue for trust
-    },
-  },
-});
+import Routes from './routes';
+import { Box } from '@mui/material';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/items/:id" element={<ItemDetail />} />
-          <Route path="/items/add" element={<AddItem />} />
-          <Route path="/admin" element={<AdminPanel />} />
-        </Routes>
+        <Box
+          sx={{
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            bgcolor: 'background.default'
+          }}
+        >
+          <Navbar />
+          <Box
+            component="main"
+            sx={{
+              flex: 1,
+              py: 4,
+              px: { xs: 2, sm: 4, md: 6 }
+            }}
+          >
+            <Routes />
+          </Box>
+        </Box>
       </Router>
     </ThemeProvider>
   );
